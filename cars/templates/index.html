@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block content %}
+
+<form class="filter" method="GET">
+    {{ filter.form|bootstrap }}
+    <button type="submit" class="btn btn-primary" style="margin: 20px 0 20px 0">Submit</button>
+</form>
+
+<ul class="list-articles">
+	{% for p in filter.qs %}
+			<li><div class="article-panel">
+	<p class="first">Model: {{p.model}}</p>
+	<p class="last">Producer: {{p.producer}}</p>
+</div>
+
+
+				<h2>Release year: {{p.series_date}}</h2>
+	{% autoescape on %}
+	<p>Color: {{p.color|truncatewords:50}}</p>
+    <p>Transmission: {{p.get_transmission_display|truncatewords:50}}</p>
+	{% endautoescape %}
+{#			<div class="clear"></div>#}
+{#			<p class="link-read-post"><a href="show/{{p.pk}}">Examine car</a></p>#}
+{#			</li>#}
+	{% endfor %}
+</ul>
+{% endblock %}
